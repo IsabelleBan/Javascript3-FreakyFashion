@@ -6,21 +6,17 @@
   padding: 3%;
   font-size: 18px;
   margin-top: -20px;
+  overflow: hidden; /* Förhindra att innehåll flyter över */
 }
 
-.hero-text h1 {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-size: 1.1em;
-  text-align: center;
-  text-transform: uppercase;
+.hero-image {
+  width: 100%;
 }
 
-.text-hero {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-size: 1em;
-  text-align: center;
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 @media (min-width: 640px) {

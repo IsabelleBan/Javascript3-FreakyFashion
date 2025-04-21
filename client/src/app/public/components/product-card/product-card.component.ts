@@ -16,8 +16,15 @@ export class ProductCardComponent {
   getImageUrl(imagePath: string): string {
     if (!imagePath) return '';
 
-    return imagePath.startsWith('http')
-      ? imagePath
-      : `http://localhost:8000${imagePath}`;
+    // För felsökning - logga sökvägen
+    console.log('Image path:', imagePath);
+
+    // Om bildsökvägen börjar med http, använd den direkt
+    if (imagePath.startsWith('http')) {
+      return imagePath;
+    }
+
+    // Konstruera korrekt URL till servern
+    return `http://localhost:8000${imagePath}`;
   }
 }

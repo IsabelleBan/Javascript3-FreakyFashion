@@ -7,4 +7,6 @@ export interface Product {
   image: string;
   isNew: number;
   isFavorite: number;
+  description: string;
+  sku: string;
 }

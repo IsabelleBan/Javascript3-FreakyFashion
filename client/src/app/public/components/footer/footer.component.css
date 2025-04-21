@@ -1,0 +1,21 @@
+.footer {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .footer {
+    background-color: #dadada;
+    border: 1px solid black;
+    height: 250px;
+    padding: 10px;
+    margin-bottom: 2%;
+    display: block;
+  }
+
+  .footer-section-container {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin: 0 auto; /* Centrera */
+  }
+}

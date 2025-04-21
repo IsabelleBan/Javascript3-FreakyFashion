@@ -3,12 +3,21 @@ import { CommonModule } from '@angular/common';
 import { HeroComponent } from '../../../public/components/hero/hero.component';
 import { SpotComponent } from '../../../public/components/spot/spot.component';
 import { ProductGridComponent } from '../../../public/components/product-grid/product-grid.component';
+import { FeatureListComponent } from '../../../public/components/feature-list/feature-list.component';
+import { FooterComponent } from '../../../public/components/footer/footer.component';
 import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeroComponent, SpotComponent, ProductGridComponent],
+  imports: [
+    CommonModule,
+    HeroComponent,
+    SpotComponent,
+    ProductGridComponent,
+    FeatureListComponent,
+    FooterComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -20,6 +29,6 @@ export class HomeComponent {
   constructor(private titleService: Title) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle('Freaky Fashion - Hem');
+    this.titleService.setTitle('Freaky Fashion');
   }
 }

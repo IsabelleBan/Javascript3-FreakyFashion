@@ -1,0 +1,20 @@
+.products-grid {
+  margin-top: 2%;
+  margin-bottom: 5%;
+  font-size: 18px;
+  display: grid;
+  grid-template-columns: 1fr; /* En kolumn i mobilvy */
+}
+
+@media (min-width: 640px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

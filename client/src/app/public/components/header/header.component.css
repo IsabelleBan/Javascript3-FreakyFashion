@@ -6,6 +6,11 @@ img {
   max-width: 100%;
 }
 
+.logo-search {
+  /* Säkerställ att den är block i mobilvy */
+  display: block;
+}
+
 .search-icons {
   display: flex;
   align-items: center;
@@ -13,19 +18,23 @@ img {
   border-radius: 20px;
   margin-top: 2%;
   max-width: 100%;
+  position: relative; /* Lägg till detta för att positionera searchIcon korrekt */
 }
 
 .search-img {
   width: 1em;
-  margin-left: 10px;
-  position: relative;
-  top: 28px; /* Flyttar ner ikonen */
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
 }
 
 .search {
   display: flex;
   flex-grow: 1;
   margin-right: 10px;
+  position: relative;
 }
 
 .search-input {
@@ -35,7 +44,9 @@ img {
   border: 1px solid black;
   background: transparent;
   border-radius: 25px;
-  text-indent: 25px; /* Justera värdet efter behov */
+  padding: 10px;
+  padding-left: 35px; /* Göra plats för ikonen */
+  width: 100%;
 }
 
 .icons {
@@ -44,8 +55,10 @@ img {
   gap: 10px;
 }
 
-.favoriter img {
-  width: 20px;
+.favorite img,
+.basket img {
+  width: 24px;
+  height: 24px;
 }
 
 nav ul {
@@ -54,6 +67,8 @@ nav ul {
   padding: 1%;
   margin-left: 10px;
   font-size: 17px;
+  display: flex;
+  gap: 15px;
 }
 
 nav ul li a {
@@ -72,6 +87,7 @@ nav ul li a {
   .logo-search {
     display: flex;
     width: 100%;
+    align-items: center;
   }
 
   #logo {
@@ -87,11 +103,12 @@ nav ul li a {
   }
 
   .search {
-    width: 20em;
+    width: 100%;
+    max-width: 30em;
   }
 
-  .search-img {
-    width: 1em;
+  .search-input {
+    width: 100%;
   }
 
   .icons {
@@ -99,7 +116,7 @@ nav ul li a {
     justify-self: end;
   }
 
-  .nav ul {
+  nav ul {
     display: flex;
     flex-direction: row;
     gap: 5%;
@@ -110,18 +127,18 @@ nav ul li a {
 }
 
 @media (min-width: 1024px) {
-  .search-img {
-    width: 1.2em;
-    position: relative;
-    top: 30px; /* Flyttar ner ikonen */
-  }
-
   .search-input {
     font-size: 1.2em;
+    width: 100%;
+  }
+
+  .search-img {
+    width: 1.2em;
   }
 
   .nav {
     width: 70%;
+    margin: 0 auto;
   }
 
   .kategori {
