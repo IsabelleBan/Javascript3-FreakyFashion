@@ -1,0 +1,26 @@
+<div class="product" *ngIf="product">
+  <a [routerLink]="['/products', product.slug]">
+    <div class="product-image">
+      <img
+        [src]="product.image ? getImageUrl(product.image) : ''"
+        [alt]="product.name || 'Product'"
+      />
+      <span class="new-badge" *ngIf="product.isNew === 1">Nyhet!</span>
+    </div>
+    <div class="product-name">
+      <span>{{ product.name || "Product" }}</span>
+      <span>{{ product.price || 0 }} SEK</span>
+    </div>
+    <div class="product-brand">{{ product.brand || "" }}</div>
+  </a>
+  <span class="full-heart">
+    <img
+      [src]="
+        'http://localhost:8000/svg/' +
+        (product.isFavorite === 1 ? 'filled-heart.svg' : 'hjärta.svg')
+      "
+      alt="Heart"
+      [ngClass]="product.isFavorite === 1 ? 'filled-heart' : 'empty-heart'"
+    />
+  </span>
+</div>
