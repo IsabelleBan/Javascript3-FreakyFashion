@@ -1,0 +1,43 @@
+<div class="content-header">
+    <h3 class="flex-item">Produkter</h3>
+    <div class="button-container">
+      <button (click)="router.navigate(['/admin/products/new'])" class="new-product-btn">
+        Ny produkt
+      </button>
+    </div>
+  </div>
+  
+  <!-- Innehåller tabellen med alla produkter -->
+  <div class="table-container">
+    <table class="products-table">
+      <thead>
+        <tr>
+          <th>Namn</th>
+          <th>SKU</th>
+          <th>Pris</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Laddar -->
+        <tr *ngIf="isLoading">
+          <td colspan="3">Laddar...</td>
+        </tr>
+  
+        <!-- Inga produkter -->
+        <tr *ngIf="!isLoading && products.length === 0">
+          <td colspan="3">Inga produkter hittades</td>
+        </tr>
+  
+        <!-- Lista produkter -->
+        <ng-container *ngIf="!isLoading && products.length > 0">
+          <tr *ngFor="let product of products">
+            <td>{{ product.name }}</td>
+            <td>{{ product.sku }}</td>
+            <td>{{ product.price }} SEK</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  
+  

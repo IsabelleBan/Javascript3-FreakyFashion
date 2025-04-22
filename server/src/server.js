@@ -1,18 +1,20 @@
 import express from "express";
-
-const port = 8000;
+import cors from "cors";
+import { getAllProducts } from "../db/db.js";
 
 const app = express();
+const PORT = 8000; // Kör backend på port 8000
 
-app.get("/api/tasks", (req, res) => {
-  const tasks = [
-    { id: 1, name: "Storstäda" },
-    { id: 2, name: "Betala räkningar" },
-  ];
+app.use(cors());
+app.use(express.json());
 
-  res.json(tasks);
+// Route för att hämta alla produkter
+app.get("/api/products", (req, res) => {
+  const products = getAllProducts();
+  res.json(products);
 });
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`✅ Servern körs på http://localhost:${PORT}`);
 });
+
