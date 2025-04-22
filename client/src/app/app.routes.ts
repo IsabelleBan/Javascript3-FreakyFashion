@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
+import { NewProductsComponent } from './new-products/new-products.component';
 
 export const routes: Routes = [
   { path: 'admin/products', component: AdminProductsComponent },
-  // andra routes här om du har
+  { path: 'admin/products/new', component: NewProductsComponent }, 
 ];
-

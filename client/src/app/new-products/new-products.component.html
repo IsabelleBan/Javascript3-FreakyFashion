@@ -1,0 +1,63 @@
+<div class="content">
+    <h3>Ny produkt</h3>
+  
+    <form (ngSubmit)="handleSubmit()">
+      <label for="name">Namn:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="formData.name"
+        required
+      />
+  
+      <label for="description">Beskrivning:</label>
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="formData.description"
+        required
+      ></textarea>
+  
+      <label for="image">Bild:</label>
+      <input
+        type="url"
+        id="image"
+        name="image"
+        [(ngModel)]="formData.image"
+        required
+      />
+  
+      <label for="brand">Märke:</label>
+      <input
+        type="text"
+        id="brand"
+        name="brand"
+        [(ngModel)]="formData.brand"
+        required
+      />
+  
+      <label for="sku">SKU:</label>
+      <input
+        type="text"
+        id="sku"
+        name="sku"
+        [(ngModel)]="formData.sku"
+        required
+      />
+  
+      <label for="price">Pris:</label>
+      <input
+        type="number"
+        id="price"
+        name="price"
+        [(ngModel)]="formData.price"
+        required
+      />
+  
+      <button type="submit" class="save-btn">
+        Lägg till
+      </button>
+    </form>
+  </div>
+  

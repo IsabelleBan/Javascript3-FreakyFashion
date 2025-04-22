@@ -158,5 +158,27 @@ if (getAllProducts().length === 0) {
   addProducts();
 }
 
+function saveProduct(product) {
+  const stmt = db.prepare(`
+    INSERT INTO products (name, price, brand, image, isNew, slug, description, sku, isFavorite)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const info = stmt.run(
+    product.name,
+    product.price,
+    product.brand,
+    product.image || null,
+    product.isNew || 0,
+    product.slug || null,
+    product.description || "",
+    product.sku,
+    product.isFavorite || 0
+  );
+
+  // Returnera den sparade produkten med id
+  return { id: info.lastInsertRowid, ...product };
+}
+
 // Exportera funktioner för att användas i server.js
-export { db, getAllProducts };
+export { db, getAllProducts, saveProduct };
