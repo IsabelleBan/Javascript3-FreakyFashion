@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+  Router,
+  NavigationEnd,
+} from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { filter } from 'rxjs/operators';
 import { Product } from '../../../models/product';
 import { ProductService } from '../../../services/product.service';
-import { SimilarProductsComponent } from '../../../public/components/similar-products/similar-products.component';
-import { HeaderComponent } from '../../../public/components/header/header.component';
-import { FooterComponent } from '../../../public/components/footer/footer.component';
-import { FeatureListComponent } from '../../../public/components/feature-list/feature-list.component';
+import { SimilarProductsComponent } from '../../components/similar-products/similar-products.component';
+import { HeaderComponent } from '../../components/header/header.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { FeatureListComponent } from '../../components/feature-list/feature-list.component';
 
 @Component({
   selector: 'app-product-details',
@@ -30,12 +36,27 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private productService: ProductService,
     private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    // Ladda produkten initialt
+    this.loadProductBySlug();
+
+    // Lyssna på navigering mellan olika produkter
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        // Ladda om produktdatan när URL:en ändras
+        this.loadProductBySlug();
+      });
+  }
+
+  loadProductBySlug(): void {
     this.loading = true;
+    this.error = null;
     const slug = this.route.snapshot.paramMap.get('slug');
 
     if (slug) {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,9 +13,12 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   query: string = '';
 
+  constructor(private router: Router) {}
+
   handleSearch(event: Event): void {
     event.preventDefault();
-    console.log('Sökning efter:', this.query);
-    // Implementera sökning senare
+    if (this.query.trim()) {
+      this.router.navigate(['/search'], { queryParams: { q: this.query } });
+    }
   }
 }

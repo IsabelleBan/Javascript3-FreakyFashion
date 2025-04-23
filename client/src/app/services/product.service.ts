@@ -23,4 +23,8 @@ export class ProductService {
   getSimilarProducts(productId: number): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}/similar?id=${productId}`);
   }
+  // src/app/services/product.service.ts
+  searchProducts(query: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`http://localhost:8000/search?q=${query}`);
+  }
 }

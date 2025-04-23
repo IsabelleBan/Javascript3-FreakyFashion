@@ -192,6 +192,28 @@ app.get("/products", (req, res) => {
   }
 });
 
+// Hämta liknande produkter (för SimilarProducts-komponenten)
+app.get("/products/similar", (req, res) => {
+  const productId = req.query.id;
+
+  if (!productId) {
+    return res.status(400).json({ error: "Missing product ID" });
+  }
+
+  try {
+    const similarProducts = db
+      .prepare("SELECT * FROM products WHERE id != ? LIMIT 3")
+      .all(productId);
+
+    res.json(similarProducts);
+  } catch (error) {
+    console.error("Error fetching similar products:", error);
+    res
+      .status(500)
+      .json({ error: "Something went wrong fetching similar products" });
+  }
+});
+
 // Sök efter produkter (för frontend sökning)
 app.get("/search", (req, res) => {
   const query = req.query.q?.toLowerCase();
@@ -238,7 +260,8 @@ app.get("/images/:filename", (req, res) => {
 // SVG-filer för hjärtikoner
 app.get("/svg/:filename", (req, res) => {
   const { filename } = req.params;
-  res.sendFile(path.join(__dirname, "public", "svg", filename));
+  // Om din mappstruktur är server/public/svg
+  res.sendFile(path.join(__dirname, "../public/svg", filename));
 });
 
 // Starta servern

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Product } from '../../../models/product';
@@ -20,25 +20,39 @@ export class SimilarProductsComponent implements OnChanges {
 
   constructor(private productService: ProductService) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['currentProductId'] && this.currentProductId) {
+  ngOnChanges(): void {
+    console.log(
+      'SimilarProducts: currentProductId changed to',
+      this.currentProductId
+    );
+    if (this.currentProductId) {
       this.loadSimilarProducts();
     }
   }
 
   loadSimilarProducts(): void {
-    if (!this.currentProductId) return;
+    if (!this.currentProductId) {
+      console.error('Cannot load similar products: currentProductId is null');
+      this.error = 'Produkt-ID saknas';
+      return;
+    }
 
     this.loading = true;
+    this.error = null;
+
+    console.log('Fetching similar products for ID:', this.currentProductId);
+
     this.productService.getSimilarProducts(this.currentProductId).subscribe({
       next: (data) => {
-        console.log('Similar products:', data);
+        console.log('Similar products received:', data);
         this.similarProducts = data || [];
         this.loading = false;
       },
       error: (error) => {
         console.error('Error fetching similar products:', error);
-        this.error = 'Kunde inte ladda liknande produkter';
+        this.error =
+          'Kunde inte ladda liknande produkter: ' +
+          (error.message || 'Okänt fel');
         this.loading = false;
       },
     });
