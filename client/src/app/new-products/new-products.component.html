@@ -1,7 +1,7 @@
 <div class="content">
     <h3>Ny produkt</h3>
   
-    <form (ngSubmit)="handleSubmit()">
+    <form (ngSubmit)="handleSubmit()" #productForm="ngForm">
       <label for="name">Namn:</label>
       <input
         type="text"

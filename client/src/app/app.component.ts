@@ -9,15 +9,18 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [RouterOutlet, CommonModule, FormsModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'], 
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'client';
-  
+  products: any[] = [];
+
   constructor(private http: HttpClient) {
-    this.http.get('/api/tasks').subscribe((tasks) => {
-      console.log(tasks);
+    this.http.get('/api/products').subscribe((products) => {
+      this.products = products as any[];
+      console.log('🔍 Produkter från backend:', this.products);
     });
   }
 }
+
 

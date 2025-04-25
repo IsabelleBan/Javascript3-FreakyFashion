@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // För att göra HTTP-anrop
-import { Router } from '@angular/router'; // För att hantera navigationen
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { ProductService } from '../services/product.service';
+import { Product } from '../services/product.service';
 
 @Component({
   selector: 'app-admin-products',
@@ -11,26 +13,32 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class AdminProductsComponent implements OnInit {
-  products: any[] = [];
+  products: Product[] = [];
   isLoading: boolean = true;
-  
-  constructor(public http: HttpClient, public router: Router) {}
+
+  constructor(
+    public http: HttpClient, 
+    public router: Router,
+    private productService: ProductService // Add ProductService
+  ) {}
 
   ngOnInit(): void {
-    // Hämta produkter från API:t när komponenten laddas
-    this.http.get<any[]>('/api/admin/products')
-      .subscribe({
-        next: (data) => {
-          this.products = data;
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('Kunde inte hämta produkter:', err);
-          this.isLoading = false;
-        }
-      });
-
-    // Uppdatera dokumentets titel
+    this.loadProducts();
     document.title = 'Administration';
+  }
+
+  // Method to load products
+  loadProducts() {
+    this.isLoading = true;
+    this.productService.getProducts().subscribe({
+      next: (data) => {
+        this.products = data;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Kunde inte hämta produkter:', err);
+        this.isLoading = false;
+      }
+    });
   }
 }
