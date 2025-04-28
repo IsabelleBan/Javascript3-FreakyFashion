@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 
 // Definiera en modell för produktens data (valfritt men rekommenderat)
 export interface Product {
-  id?: number;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-  brand: string;
-  sku: string;
-}
+    id?: number;
+    name: string;
+    price: string | null;
+    description: string;
+    image: string;
+    brand: string;
+    sku: string;
+  }
 
 @Injectable({
   providedIn: 'root', // Gör servicen tillgänglig i hela appen

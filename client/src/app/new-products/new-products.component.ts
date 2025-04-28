@@ -18,7 +18,7 @@ export class NewProductsComponent {
     image: '',
     brand: '',
     sku: '',
-    price: 0 // Initialize with 0 instead of null
+    price: ''
   };
 
   constructor(
@@ -27,6 +27,12 @@ export class NewProductsComponent {
   ) {}
 
   handleSubmit() {
+    // Tvinga price den att vara en string 
+    if (this.formData.price !== null) {
+      this.formData.price = this.formData.price.toString();
+    }
+    console.log("Type of price before sending:", typeof this.formData.price);
+    console.log("Value of price before sending:", this.formData.price);
     this.productService.addProduct(this.formData).subscribe({
       next: (response) => {
         console.log('✅ Produkt skapad:', response);
