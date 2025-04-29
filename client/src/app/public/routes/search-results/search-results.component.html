@@ -1,0 +1,18 @@
+<div class="search-results-container">
+  <h2>Hittade {{ products.length }} produkter</h2>
+
+  <div *ngIf="loading" class="loading">Laddar produkter...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="product-grid">
+    <app-product-card *ngFor="let product of products" [product]="product">
+    </app-product-card>
+
+    <div *ngIf="products.length === 0 && !loading" class="no-results">
+      Inga produkter matchade din sökning.
+    </div>
+  </div>
+  <app-feature-list></app-feature-list>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,68 @@
+.similar-products {
+  margin: 40px 0;
+}
+
+.similar-products-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+}
+
+.similar-product-card {
+  text-decoration: none;
+  color: black;
+  border: 1px solid #eee;
+  padding: 10px;
+  transition: transform 0.3s ease;
+}
+
+.similar-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.similar-product-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.similar-product-info {
+  margin-top: 10px;
+}
+
+.similar-product-name {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.similar-product-brand {
+  color: #777;
+  font-size: 0.9em;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+@media (min-width: 640px) {
+  .similar-products-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .similar-products h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    color: #333;
+    text-align: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .similar-products-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
