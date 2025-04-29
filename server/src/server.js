@@ -28,7 +28,7 @@ app.post("/api/products", (req, res) => {
   const saved = saveProduct(newProduct); // Spara till databasen
   res.status(201).json(saved);
 });
- 
+
 // CORS-konfiguration för att tillåta requests från både React och Angular
 app.use(
   cors({

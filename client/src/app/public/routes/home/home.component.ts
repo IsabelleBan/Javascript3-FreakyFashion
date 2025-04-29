@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
 import { HeroComponent } from '../../../public/components/hero/hero.component';
 import { SpotComponent } from '../../../public/components/spot/spot.component';
 import { ProductGridComponent } from '../../../public/components/product-grid/product-grid.component';
@@ -12,6 +13,7 @@ import { Title } from '@angular/platform-browser';
   standalone: true,
   imports: [
     CommonModule,
+    HeaderComponent,
     HeroComponent,
     SpotComponent,
     ProductGridComponent,
