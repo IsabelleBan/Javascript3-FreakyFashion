@@ -1,0 +1,28 @@
+<div *ngIf="loading" class="loading">Laddar produkt...</div>
+<div *ngIf="error" class="error">Ett fel uppstod: {{ error }}</div>
+
+<div *ngIf="product" class="product-details">
+  <div class="product-details-card">
+    <div class="product-image">
+      <img
+        *ngIf="product.image"
+        [src]="getImageUrl(product.image)"
+        [alt]="product.name"
+      />
+    </div>
+
+    <div class="product-info">
+      <h1>{{ product.name }}</h1>
+      <p class="brand">{{ product.brand }}</p>
+      <p *ngIf="product.description">{{ product.description }}</p>
+      <p class="price">{{ product.price }} SEK</p>
+
+      <button (click)="addToCart()" class="cart-button">Lägg i varukorg</button>
+    </div>
+  </div>
+
+  <app-similar-products [currentProductId]="product.id"></app-similar-products>
+  <app-feature-list></app-feature-list>
+</div>
+
+<app-footer></app-footer>

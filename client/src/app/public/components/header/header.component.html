@@ -1,0 +1,63 @@
+<header>
+  <div class="header">
+    <div class="logo-search">
+      <div>
+        <a routerLink="/">
+          <img id="logo" src="assets/images/FreakyFashionLogo.png" alt="Logo" />
+        </a>
+      </div>
+
+      <div class="search-icons">
+        <form class="search" (submit)="handleSearch($event)">
+          <img
+            src="assets/svg/search.svg"
+            alt="search-icon"
+            class="search-img"
+          />
+          <input
+            class="search-input"
+            type="text"
+            placeholder="Sök produkt"
+            [(ngModel)]="query"
+            name="query"
+          />
+        </form>
+
+        <div class="icons">
+          <div class="favorite">
+            <a routerLink="/favorites">
+              <img src="assets/svg/favorites.svg" alt="favoriter" />
+            </a>
+          </div>
+          <div class="basket">
+            <a routerLink="/cart" class="varukorg-icon">
+              <img src="assets/svg/varukorg.svg" alt="varukorg" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <nav>
+      <ul>
+        <li>
+          <a routerLink="/nyheter">Nyheter</a>
+        </li>
+        <li class="kategori">
+          <a routerLink="/kategorier">Kategorier</a>
+        </li>
+        <li>
+          <a routerLink="/topplistan">Topplistan</a>
+        </li>
+        <li>
+          <a routerLink="/rea">Rea</a>
+        </li>
+        <li>
+          <a routerLink="/kampanjer">Kampanjer</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

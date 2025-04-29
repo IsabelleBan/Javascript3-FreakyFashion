@@ -1,0 +1,30 @@
+<div class="similar-products" *ngIf="similarProducts.length > 0">
+  <h2>Liknande produkter</h2>
+  <div class="similar-products-container">
+    <a
+      [routerLink]="['/products', product.slug]"
+      *ngFor="let product of similarProducts"
+      class="similar-product-card"
+    >
+      <div class="similar-product-image">
+        <img
+          *ngIf="product.image"
+          [src]="getImageUrl(product.image)"
+          [alt]="product.name"
+        />
+      </div>
+      <div class="similar-product-info">
+        <div class="similar-product-name">
+          <span>{{ product.name }}</span>
+          <span>{{ product.price }} SEK</span>
+        </div>
+        <div class="similar-product-brand" *ngIf="product.brand">
+          {{ product.brand }}
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<p *ngIf="loading">Laddar liknande produkter...</p>
+<p *ngIf="error">{{ error }}</p>
