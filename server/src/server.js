@@ -2,7 +2,6 @@ import express from "express";
 import Database from "better-sqlite3";
 import path from "path";
 import cors from "cors";
-import cors from "cors";
 import { getAllProducts } from "../db/db.js";
 import { saveProduct } from "../db/db.js";
 const app = express();
@@ -21,11 +20,14 @@ app.post("/api/products", (req, res) => {
   const newProduct = req.body;
 
   if (!newProduct || !newProduct.name || !newProduct.sku) {
-    return res.status(400).json({ error: "Produktdata saknas eller är ofullständig." });
+    return res
+      .status(400)
+      .json({ error: "Produktdata saknas eller är ofullständig." });
   }
 
   const saved = saveProduct(newProduct); // Spara till databasen
   res.status(201).json(saved);
+});
 
 // CORS-konfiguration för att tillåta requests från både React och Angular
 app.use(
@@ -286,12 +288,6 @@ app.get("/svg/:filename", (req, res) => {
 });
 
 // Starta servern
-app.listen(port, () => {
-  console.log(`Server körs på http://localhost:${port}`);
-  console.log(
-    `Besök http://localhost:${port}/products för att se alla produkter`
-  );
 app.listen(PORT, () => {
   console.log(`✅ Servern körs på http://localhost:${PORT}`);
 });
-

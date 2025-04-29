@@ -3,21 +3,21 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
-import { Product } from '../services/product.service';
+import { Product } from '../models/product';
 
 @Component({
   selector: 'app-admin-products',
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class AdminProductsComponent implements OnInit {
   products: Product[] = [];
   isLoading: boolean = true;
 
   constructor(
-    public http: HttpClient, 
+    public http: HttpClient,
     public router: Router,
     private productService: ProductService // Add ProductService
   ) {}
@@ -38,7 +38,7 @@ export class AdminProductsComponent implements OnInit {
       error: (err) => {
         console.error('Kunde inte hämta produkter:', err);
         this.isLoading = false;
-      }
+      },
     });
   }
 }

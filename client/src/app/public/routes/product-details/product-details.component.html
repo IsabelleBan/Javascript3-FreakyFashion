@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div *ngIf="loading" class="loading">Laddar produkt...</div>
 <div *ngIf="error" class="error">Ett fel uppstod: {{ error }}</div>
 
@@ -21,7 +22,9 @@
     </div>
   </div>
 
-  <app-similar-products [currentProductId]="product.id"></app-similar-products>
+  <app-similar-products
+    [currentProductId]="product.id ?? null"
+  ></app-similar-products>
   <app-feature-list></app-feature-list>
 </div>
 
