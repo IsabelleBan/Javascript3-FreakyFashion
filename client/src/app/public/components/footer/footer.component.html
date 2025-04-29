@@ -1,0 +1,16 @@
+<footer>
+  <app-footer-accordion></app-footer-accordion>
+  <div class="footer">
+    <div class="footer-section-container">
+      <app-footer-section
+        *ngFor="let section of footerSections"
+        [title]="section.title"
+        [links]="section.links"
+      >
+      </app-footer-section>
+    </div>
+    <div class="footer-bottom">
+      <span>© Freaky Fashion</span>
+    </div>
+  </div>
+</footer>

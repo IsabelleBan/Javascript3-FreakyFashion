@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
-import { Product } from '../services/product.service';
+import { Product } from '../models/product'
 
 @Component({
   selector: 'app-admin-products',

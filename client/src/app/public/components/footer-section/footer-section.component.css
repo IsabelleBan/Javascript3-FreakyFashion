@@ -1,0 +1,22 @@
+h3 {
+  margin-left: 40px;
+}
+
+ul li a {
+  text-decoration: none;
+  color: black;
+}
+
+ul {
+  list-style: none;
+}
+
+.footer-section {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .footer-section {
+    display: block;
+  }
+}

@@ -1,0 +1,58 @@
+.spots-container {
+  display: none; /* Göm i mobilläge enligt din tidigare CSS */
+}
+
+.spot {
+  position: relative;
+  margin: 1em;
+  width: 100%; /* Säkerställ att spoten tar rätt bredd */
+}
+
+.spot img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.spot h2 {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  color: white;
+  font-size: 2rem;
+  transform: translate(-50%, -50%);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Lägg till skugga för bättre läsbarhet */
+}
+
+@media (min-width: 1024px) {
+  .spots-container {
+    display: flex;
+    flex-wrap: wrap; /* Tillåt wrapping på mindre skärmar */
+    justify-content: center; /* Centrera innehållet */
+    gap: 10px; /* Lägg till mellanrum mellan spots */
+    padding: 0 5%; /* Minska padding för att ge mer utrymme */
+  }
+
+  .spot {
+    flex: 1; /* Varje spot tar lika mycket utrymme */
+    min-width: 200px; /* Minimal bredd så de inte blir för små */
+    max-width: 33%; /* Maximal bredd så de inte blir för stora */
+  }
+
+  /* Justera textstorlek för mindre skärmar */
+  .spot h2 {
+    font-size: clamp(1.2rem, 3vw, 2rem); /* Responsiv fontstorlek */
+  }
+}
+
+/* För ännu mindre skärmar, justera layouten ytterligare */
+@media (max-width: 1200px) and (min-width: 1024px) {
+  .spots-container {
+    padding: 0 2%;
+  }
+
+  .spot {
+    margin: 0.5em;
+  }
+}
