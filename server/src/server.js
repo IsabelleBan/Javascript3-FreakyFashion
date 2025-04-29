@@ -2,9 +2,32 @@ import express from "express";
 import Database from "better-sqlite3";
 import path from "path";
 import cors from "cors";
-
-const port = 8000;
+import { getAllProducts } from "../db/db.js";
+import { saveProduct } from "../db/db.js";
 const app = express();
+const PORT = 8000; // Kör backend på port 8000
+ 
+app.use(cors());
+app.use(express.json());
+ 
+// Route för att hämta alla produkter
+app.get("/api/products", (req, res) => {
+  const products = getAllProducts();
+  res.json(products);
+});
+ 
+app.post("/api/products", (req, res) => {
+  const newProduct = req.body;
+ 
+  if (!newProduct || !newProduct.name || !newProduct.sku) {
+    return res
+      .status(400)
+      .json({ error: "Produktdata saknas eller är ofullständig." });
+  }
+ 
+  const saved = saveProduct(newProduct); // Spara till databasen
+  res.status(201).json(saved);
+});
 
 // CORS-konfiguration för att tillåta requests från både React och Angular
 app.use(
@@ -13,19 +36,19 @@ app.use(
     credentials: true,
   })
 );
-
+ 
 // Gör bilder i public-mappen tillgängliga
 app.use(express.static("public"));
-
+ 
 // Middleware för att hantera JSON-data
 app.use(express.json());
-
+ 
 const dbPath = "./db/freakyfashion.db";
-
+ 
 // Initiera databasen
 function setupDb() {
   const db = new Database(dbPath, { verbose: console.log });
-
+ 
   // Skapa tabellen om den inte finns
   db.exec(`
     CREATE TABLE IF NOT EXISTS products (
@@ -41,17 +64,17 @@ function setupDb() {
       isFavorite INTEGER DEFAULT 0
     )
   `);
-
+ 
   // Kontrollera om det finns produkter
   const count = db.prepare("SELECT COUNT(*) as count FROM products").get();
-
+ 
   // Om tabellen är tom, lägg till produkter
   if (count.count === 0) {
     const insertStmt = db.prepare(`
       INSERT INTO products (name, price, brand, image, isNew, slug, description, sku, isFavorite)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
-
+ 
     // Produktdata
     const products = [
       {
@@ -143,7 +166,7 @@ function setupDb() {
         isFavorite: 0,
       },
     ];
-
+ 
     // Lägg till varje produkt
     products.forEach((product) => {
       try {
@@ -164,23 +187,23 @@ function setupDb() {
         );
       }
     });
-
+ 
     console.log("✅ Produkter har lagts till i databasen!");
   }
-
+ 
   return db;
 }
-
+ 
 // Initiera databasen
 const db = setupDb();
-
+ 
 // Test-route för att se om servern fungerar
 app.get("/", (req, res) => {
   res.send("Backend fungerar! 🚀");
 });
-
+ 
 // ===== FRONTEND API ROUTES =====
-
+ 
 // Hämta alla produkter (för frontend ProductGrid)
 app.get("/products", (req, res) => {
   try {
@@ -191,20 +214,20 @@ app.get("/products", (req, res) => {
     res.status(500).json({ error: "Något gick fel med databasen" });
   }
 });
-
+ 
 // Hämta liknande produkter (för SimilarProducts-komponenten)
 app.get("/products/similar", (req, res) => {
   const productId = req.query.id;
-
+ 
   if (!productId) {
     return res.status(400).json({ error: "Missing product ID" });
   }
-
+ 
   try {
     const similarProducts = db
       .prepare("SELECT * FROM products WHERE id != ? LIMIT 3")
       .all(productId);
-
+ 
     res.json(similarProducts);
   } catch (error) {
     console.error("Error fetching similar products:", error);
@@ -213,14 +236,14 @@ app.get("/products/similar", (req, res) => {
       .json({ error: "Something went wrong fetching similar products" });
   }
 });
-
+ 
 // Sök efter produkter (för frontend sökning)
 app.get("/search", (req, res) => {
   const query = req.query.q?.toLowerCase();
   if (!query) {
     return res.status(400).json({ error: "Ingen sökterm angiven" });
   }
-
+ 
   try {
     console.log("Sökterm:", query);
     const sql = `SELECT * FROM products WHERE LOWER(name) LIKE ?`;
@@ -231,43 +254,40 @@ app.get("/search", (req, res) => {
     res.status(500).json({ error: "Fel vid hämtning av produkter" });
   }
 });
-
+ 
 // Hämta produkt via slug (för ProductDetails)
 app.get("/products/:slug", (req, res) => {
   const { slug } = req.params;
   try {
     console.log("Hämtar produkt med slug:", slug);
-
+ 
     const product = db
       .prepare("SELECT * FROM products WHERE slug = ?")
       .get(slug);
-
+ 
     if (!product) {
       return res.status(404).json({ error: "Produkten hittades inte" });
     }
-
+ 
     res.json(product);
   } catch (error) {
     console.error("Fel vid hämtning av produkt:", error);
     res.status(500).json({ error: "Något gick fel vid hämtning av produkt" });
   }
 });
-
+ 
 app.get("/images/:filename", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/images/", req.params.filename));
 });
-
+ 
 // SVG-filer för hjärtikoner
 app.get("/svg/:filename", (req, res) => {
   const { filename } = req.params;
   // Om din mappstruktur är server/public/svg
   res.sendFile(path.join(__dirname, "../public/svg", filename));
 });
-
+ 
 // Starta servern
-app.listen(port, () => {
-  console.log(`Server körs på http://localhost:${port}`);
-  console.log(
-    `Besök http://localhost:${port}/products för att se alla produkter`
-  );
+app.listen(PORT, () => {
+  console.log(`✅ Servern körs på http://localhost:${PORT}`);
 });

@@ -1,13 +1,12 @@
-// src/app/models/product.ts
 export interface Product {
-  id: number;
+  id?: number;
   name: string;
-  price: number;
+  price: string;
   brand: string;
-  slug: string;
+  slug?: string;
   image: string;
-  isNew: number;
-  isFavorite: number;
+  isNew?: number;
+  isFavorite?: number;
   description: string;
   sku: string;
 }
